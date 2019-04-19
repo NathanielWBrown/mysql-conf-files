@@ -1,0 +1,89 @@
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+
+[mysqld]
+#
+# Remove leading # and set to the amount of RAM for the most important data
+# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+# innodb_buffer_pool_size = 128M
+#
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+# log_bin
+#
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+
+[client]
+port                            = 3306
+#socket                          = /data01/db/mysql.sock
+
+[mysqld]
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+#symbolic-links=0
+
+tmpdir= /data01/tmp
+datadir=/data01/db
+
+log-error=/data01/db/mysqld.log
+pid-file=/data01/db/mysqld.pid
+socket                          = /data01/db/mysql.sock
+
+server-id                       = 102314141 
+log-bin                         = /data01/binlog/mysql-bin
+expire_logs_days                = 7
+
+innodb_buffer_pool_size         = 6442450944
+
+open_files_limit                = 5000 
+
+local-infile                    = 1
+back_log                        = 50
+
+max_connections                 = 1000
+max_connect_errors              = 10
+
+key_buffer_size                 = 1073741824
+max_allowed_packet              = 1024M
+table_open_cache                = 4096
+table_definition_cache          = 4096
+sort_buffer_size                = 8M
+join_buffer_size                = 4M
+net_buffer_length               = 1M
+read_buffer_size                = 16M
+read_rnd_buffer_size            = 8M
+binlog_cache_size               = 64K
+max_heap_table_size             = 64M
+query_cache_type                = 0
+query_cache_size                = 0
+thread_cache_size               = 40
+ft_min_word_len                 = 4
+thread_stack                    = 192K
+transaction_isolation           = REPEATABLE-READ
+tmp_table_size                  = 2G
+bulk_insert_buffer_size         = 2G
+myisam_data_pointer_size        = 5
+myisam_sort_buffer_size         = 256M
+myisam_max_sort_file_size       = 100G
+myisam_repair_threads           = 1
+
+#Timeout settings
+
+interactive_timeout             = 432000
+wait_timeout                    = 432000
+net_write_timeout               = 28800
+net_read_timeout                = 1000
+
+slow_query_log                  = 1
+log_warnings                    = 3
+long_query_time                 = 1
+
+# enabling global transaction id (GTID)
+
+enforce_gtid_consistency = ON
+gtid_mode = ON
